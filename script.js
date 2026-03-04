@@ -41,6 +41,13 @@ function createBookCard(book){
     const toggleReadBtn = document.createElement('button');
     toggleReadBtn.textContent = book.read;
 
+    toggleReadBtn.classList.add('statusBtn');
+    if (book.read === 'read') {
+        toggleReadBtn.classList.add('is-read');
+    } else {
+        toggleReadBtn.classList.add('is-not-read');
+    }
+
     toggleReadBtn.addEventListener('click', (e) => {
         book.toggleRead();
         displayBooksinLibrary();
