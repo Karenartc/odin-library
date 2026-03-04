@@ -5,7 +5,7 @@ const bookPagesInput= document.querySelector('#bookPages');
 const bookHaveReadInput = document.querySelector('#bookHaveRead');
 const libraryContainer = document.querySelector('.bookCards');
 
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(title, author, pages, read) {
     if (!new.target) throw Error("You must use the 'new' operator to call the constructor");
@@ -36,7 +36,15 @@ function createBookCard(book){
     const haveReadCard = document.createElement('p');
     haveReadCard.textContent = book.read;
 
-    bookCard.append(titleCard, authorCard, pagesCard, haveReadCard);
+    const deleteCardBtn = document.createElement('button');
+    deleteCardBtn.textContent = 'Delete Book';
+
+    deleteCardBtn.addEventListener('click', (e) => {
+        myLibrary = myLibrary.filter(b => b.id !== book.id);
+        displayBooksinLibrary();
+    });
+
+    bookCard.append(titleCard, authorCard, pagesCard, haveReadCard, deleteCardBtn);
     libraryContainer.appendChild(bookCard);
 }
 
