@@ -3,13 +3,12 @@ const bookTitleInput = document.querySelector('#bookTitle');
 const bookAuthorInput = document.querySelector('#bookAuthor');
 const bookPagesInput= document.querySelector('#bookPages');
 const bookHaveReadInput = document.querySelector('#bookHaveRead');
+const libraryContainer = document.querySelector('.bookCards');
 
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
-    if (!new.target) {
-        throw Error("You must use the 'new' operator to call the constructor");
-    }
+    if (!new.target) throw Error("You must use the 'new' operator to call the constructor");
 
     this.id = crypto.randomUUID();
     this.title = title;
@@ -23,14 +22,28 @@ function addBookToLibrary(title, author, pages, read) {
     return myLibrary.push(newBook);
 }
 
-function displayBooksinLibrary(){
-    myLibrary.forEach(book => {
-        console.log(`${book.title}, ${book.author}, ${book.pages}, ${book.read}`);
-    });
+function createBookCard(book){
+    const bookCard = document.createElement('div');
+    bookCard.classList.add('bookCard');
+    bookCard.dataset.id = book.id;
+
+    const titleCard = document.createElement('h3');
+    titleCard.textContent = book.title;
+    const authorCard = document.createElement('p');
+    authorCard.textContent = book.author;
+    const pagesCard = document.createElement('p');
+    pagesCard.textContent = book.pages;
+    const haveReadCard = document.createElement('p');
+    haveReadCard.textContent = book.read;
+
+    bookCard.append(titleCard, authorCard, pagesCard, haveReadCard);
+    libraryContainer.appendChild(bookCard);
 }
 
-addBookToLibrary("Thics", "TJ Klune", 456, true);
-addBookToLibrary("Dune", "Frank Herbert", 500, false);
+function displayBooksinLibrary(){
+    libraryContainer.textContent = '';
+    myLibrary.forEach(book => createBookCard(book));
+}
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -44,6 +57,3 @@ form.addEventListener('submit', (e) => {
 
     form.reset();
 });
-
-
-
