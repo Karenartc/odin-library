@@ -13,11 +13,11 @@ class Book{
         this.title = title;
         this.author = author;
         this.pages = pages;
-        this.read = read === true ? 'read' : 'not read yet';
+        this.read = read;
     }
 
     toggleRead() {
-        this.read = this.read === 'read' ? 'not read yet' : 'read';
+        this.read = !this.read;
     }
 }
 
@@ -39,14 +39,10 @@ function createBookCard(book){
     pagesCard.textContent = book.pages;
 
     const toggleReadBtn = document.createElement('button');
-    toggleReadBtn.textContent = book.read;
+    toggleReadBtn.textContent = book.read ? 'read' : 'not read yet';
 
     toggleReadBtn.classList.add('statusBtn');
-    if (book.read === 'read') {
-        toggleReadBtn.classList.add('is-read');
-    } else {
-        toggleReadBtn.classList.add('is-not-read');
-    }
+    toggleReadBtn.classList.add(book.read ? 'is-read' : 'is-not-read');
 
     toggleReadBtn.addEventListener('click', (e) => {
         book.toggleRead();
